@@ -1,0 +1,219 @@
+<!-- ________________________Filter Nav_________________________________ -->
+
+
+<nav class="filters navbar navbar-expand-xl bg-light pb-2 my-0">
+
+  <div class="container mx-lg-5">
+
+    <!-- _____Categories list________ -->
+
+    <div class="nav-item dropdown">
+
+      <a class="nav-link dropdown-toggle link-dark" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        ALL CATEGORIES
+      </a>
+
+      <ul class="dropdown-menu categories">
+
+        <div class="d-flex flex-wrap justify-content-around p-4">
+
+          <div class="m-3" *ngFor="let category of allCategories">
+            <li class="fs-6 fw-bold dropdown-item list-group" (click)="categorySelect($event)"
+              value="{{category.categoryID}}" title="{{category.categoryName}}"> {{category.categoryName}}</li>
+
+            <li *ngFor="let c of category.subCategories" class="text-muted dropdown-item m-0 p-0"
+              (click)="subCategorySelect($event,category.categoryID,category.categoryName)" value="{{c.subCategoryID}}"
+              title="{{c.subCategoryName}}"> {{c.subCategoryName}}</li>
+          </div>
+
+        </div>
+      </ul>
+
+    </div>
+
+
+    <!-- _____Categories list________ -->
+
+
+
+    <!-- _____Location filter________ -->
+
+    <div class="container-fluid d-flex">
+
+      <div class="d-flex  mx-2" style="height: 30px;">
+        <div class="vr"></div>
+      </div>
+
+
+      <select class="form-select input-group px-2 mx-2" aria-label="Default select example"
+        (change)="onlocationSelect($event.target)" #location>
+        <option selected disabled> Egypt </option>
+        <option [value]="0">See Ads in all Egypt </option>
+        <hr class="dropdown-divider">
+        <option [value]="C.locationId" *ngFor="let C of locations">{{C.cityName}}</option>
+      </select>
+
+
+      <!-- ________Location filter________ -->
+
+      <!-- _________Search________ -->
+
+      <div class="input-group mx-2">
+        <input [(ngModel)]="searchValue" type="text" class="form-control"
+          placeholder="Find Cars, Mobile phones and More">
+        <button (click)="OnsearchText()" class="btn btn-outline backcolor" type="submit" id="button-addon2">
+          <img src="/assets/images/search2.png" alt="" width="20" height="20">
+        </button>
+      </div>
+
+      <div class="d-flex mx-2" style="height: 30px;">
+        <div class="vr"></div>
+      </div>
+
+    </div>
+    <!-- _________ Search________ -->
+
+
+
+    <!-- _____Price filter_______ -->
+
+    <div class="container-fluid my-2 p-0">
+
+      <form class="d-flex justify-content-center ">
+
+        <div class="me-1">
+          <input type="number" min="10" step="10" name="filter.searchObject.minPrice" #Min placeholder="Min Price"
+            class="form-control">
+        </div>
+
+        <div class="mx-1">
+          <input type="number" min="10" step="10" name="filter.searchObject.maxPrice" #Max placeholder="Max Price"
+            class="form-control">
+        </div>
+
+        <button (click)="OnPriceSet(Min.value,Max.value)" class="btn btn-outline backcolor" type="submit"
+          id="button-addon2">
+          <img src="/assets/images/search2.png" alt="" width="20" height="20">
+        </button>
+
+      </form>
+
+    </div>
+
+
+    <!-- _____Price filter_______ -->
+
+  </div>
+</nav>
+<!-- ________________________Filter Nav_________________________________ -->
+
+
+<div class="categoryPath">
+  <nav aria-label="breadcrumb py-1">
+    <ol class="breadcrumb my-3 mx-1">
+      <li class="breadcrumb-item">All Categories</li>
+      <li class="breadcrumb-item">{{categorySelectedName}}</li>
+      <li *ngIf="subcategorySelectedId!=0" class="breadcrumb-item active" aria-current="page">
+        {{subcategorySelectedName}}
+      </li>
+    </ol>
+  </nav>
+</div>
+
+
+
+
+
+
+
+<!-- ________________________Manually_________________________________ -->
+
+<!-- <div class="global row row-cols-2 row-cols-md-4 g-4 m-3">
+  <div *ngFor="let i of Items" class="col">
+    <div class="card h-100">
+      <img src="{{ i.photo[0].src }}" class="card-img-top" alt="{{ i.title }}" />
+      <div></div>
+      <div class="card-body">
+        <div class="d-flex align-items-start">
+          <p class="card-text">{{ i.title }}</p>
+           <div (click)="favorite(i)" class="m-1">
+             <i [ngClass]="
+                Fav ? 'fa-solid fa-heart fa-lg' : 'fa-regular fa-heart fa-lg'
+              "></i>
+          </div> 
+        </div>
+        <div class="d-flex align-items-center">
+          <h4 class="card-title">{{ i.price }} EGP</h4>
+          <small class="card-text text-muted mx-2" *ngIf="i.nego_Price">negotaitable</small>
+        </div>
+        <p class="card-text">
+          <small class="text-muted">{{ i.area + " , " + i.city }}</small>
+        </p>
+        <a (click)="setItem(i)" routerLink="/Postdetails/{{i.Id}}" class=" stretched-link"></a>
+      </div>
+    </div>
+  </div>
+</div>  -->
+
+<!--  -->
+
+<div *ngIf="totalRecords != 0">
+
+  <!-- ________________________Using API_________________________________ -->
+  <div class="global row row-cols-2 row-cols-md-4 g-4 m-3">
+    <div *ngFor="let post of AllPosts " class="col">
+      <!-- <a class="btn btn-primary" (click)="createImgPath(post)">a</a> -->
+      <div class="card h-100">
+        <!-- <div  class="card-img-wrapper">
+          <img src="{{post.PostImages[0].imageURL}}" class="card-img-top" alt="{{ post.title}}" />
+        </div>  -->
+        <div class="card-img-wrapper">
+          <img [src]="createImgPath(post)" class="card-img-top"
+            alt="{{post.title}}" />
+        </div>
+
+        <div class="card-body">
+          <div class="d-flex align-items-start justify-content-between">
+            <p class="card-text">{{ post.title }}</p>
+
+            <!-- <div (click)="favorite($event,post)" class="m-1">
+              <i class="fa-regular fa-heart fa-lg"></i>
+              <i [ngClass]="
+                Fav ? 'fa-solid fa-heart fa-lg' : 'fa-regular fa-heart fa-lg'
+              "></i>
+            </div> -->
+          </div>
+          <div class="d-flex flex-wrap align-items-center">
+            <h4 class="card-title text-nowrap">{{ post.price }} EGP</h4>
+            <small class="card-text text-muted mx-2" *ngIf="post.isNegotiable">negotaitable</small>
+          </div>
+          <p class="card-text d-flex flex-wrap justify-content-between">
+            <small class="text-muted">{{ post.cityName }},Egypt</small>
+            <small class="text-muted">{{calculatePostDays(post.createdAt)}} Days ago</small>
+          </p>
+          <a href="#" routerLink="/Postdetails/{{post.postId}}" class=" stretched-link"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ________________________Pagination_________________________________ -->
+
+  <div class="d-flex justify-content-center m-0">
+    <pagination [boundaryLinks]="false" [maxSize]=5 [totalItems]="totalRecords" [itemsPerPage]="filter.pageSize"
+      [(ngModel)]="filter.pageNumber" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
+      firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+  </div>
+
+</div>
+
+<!-- ________________________No search results found_________________________________ -->
+<div *ngIf="totalRecords == 0">
+  <div class="container-fluid text-center">
+    <img src="/assets/images/search (1).png" alt="search not found" class="m-4" width="250" height="250">
+    <h3>oops! We didn't find anything that matches this search :(</h3>
+    <p>Try search for something more general,change the filters ,or check for spelling mistakes</p>
+    <button (click)="reloadPosts()" class="btn btn-primary">Search Again</button>
+  </div>
+</div>

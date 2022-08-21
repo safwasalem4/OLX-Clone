@@ -1,0 +1,8 @@
+Backend/Backend/obj/Debug/net6.0/Backend.assets.cache
+################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Backend/.vs/*
+/Frontend/.vscode

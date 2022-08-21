@@ -1,0 +1,64 @@
+<form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off" class="register py-lg-2 px-lg-5">
+    <h2 class="text-center text-primary">Sign Up</h2>
+    <hr>
+    <div class="form-group mt-2">
+        <input type="text" class="form-control" name="username" [(ngModel)]="model.username" placeholder="Username" required #username="ngModel">
+    </div>
+
+    <div class="mt-1" *ngIf="(username.touched)&&(username.errors)">
+        <h6 style="color: red;font-size: small;">Username is required!</h6>
+    </div>
+
+    <div class="form-group mt-2">
+        <input type="text" class="form-control" name="fName" [(ngModel)]="model.fName" placeholder="First Name" required #fname="ngModel">
+    </div>
+
+    <div class="mt-1" *ngIf="(fname.touched)&&(fname.errors)">
+        <h6 style="color: red;font-size: small;">First Name is required!</h6>
+    </div>
+
+    <div class="form-group mt-2">
+        <input type="text" class="form-control" name="lName" [(ngModel)]="model.lName" placeholder="Last Name" required #lname="ngModel">
+    </div>
+
+    <div class="mt-1" *ngIf="(lname.touched)&&(lname.errors)">
+        <h6 style="color: red;font-size: small;">Last Name is required!</h6>
+    </div>
+
+    <div class="form-group mt-2">
+        <input type="email" class="form-control" email name="email" [(ngModel)]="model.email" placeholder="Email" required #email="ngModel">
+    </div>
+
+    <div class="mt-1" *ngIf="(email.touched)&&(email.errors)">
+        <h6 style="color: red;font-size: small;">Please enter valid email address</h6>
+    </div>
+
+    <div class="form-group mt-2">
+        <input type="text" class="form-control" pattern="^01[0-2,5]{1}[0-9]{8}$" name="phone" [(ngModel)]="model.phone" placeholder="Phone Number" maxlength="11" required #phone="ngModel" >
+    </div>
+
+    <div class="mt-1" *ngIf="(phone.touched)&&(phone.errors)">
+        <h6 style="color: red;font-size: small;">Please enter valid phone number</h6>
+    </div>
+
+    <div class="form-group mt-2">
+        <input type="password" class="form-control" name="password" [(ngModel)]="model.password" placeholder="Password" minlength="6" required #password="ngModel">
+    </div>
+
+    <div class="mt-1" *ngIf="(password.touched)&&(password.errors)">
+        <h6 style="color: red;font-size: small;">Minimum password length is 6 characters</h6>
+    </div>
+
+    <div class="form-group mt-2">
+        <input (keyup)="compare()" type="password" class="form-control" name="confirmPassword" [(ngModel)]="model.confirmPassword" placeholder="Confirm Password" required #cpassword="ngModel">
+    </div>
+
+    <div class="mt-1">
+        <h6 *ngIf="!confirm && cpassword.touched" style="color: red;font-size: small;">Confirm password should be same as password</h6>
+    </div>
+
+    <div class="form-group text-center mt-2">
+        <button [disabled]="registerForm.invalid || !confirm" class="btn btn-primary me-2" type="submit">Register</button>
+        <button style="background-color: rgb(219, 217, 217);" class="btn" (click)="cancel()" type="button">Cancel</button>
+    </div>
+</form>

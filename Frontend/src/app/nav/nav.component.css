@@ -1,0 +1,49 @@
+.dropdown-toggle, .dropdown-item {
+    cursor: pointer;
+}
+
+
+.backcolor {
+    background-color: rgb(0, 47, 52);
+}
+
+.sellbtn{
+    
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    border: none;
+    width: 100px;
+    height: 46px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px 0px #e0e0e0;
+    background-image: url(/assets/images/Capture.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .dropdown-menu {         
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .input-group{
+    width: 300px;
+  }
+  .container-fluid{
+    justify-content: space-evenly;
+  }
+
+  .clone{
+    font-size: small;
+    color: grey;
+    
+  }
+  ul {
+    list-style-type: none;
+}
+
+  
+
+
+

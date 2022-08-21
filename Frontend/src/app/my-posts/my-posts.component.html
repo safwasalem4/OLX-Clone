@@ -1,0 +1,75 @@
+<h3 style="text-align: center;" class="m-3 fw-bolder">MY ADS</h3>
+<div class="d-flex justify-content-center text-center align-items-end ">
+
+    <div class="form-check ms-5">
+        <!-- <button (click)="getAll()" type="button" class="btn btn-dark mt-3">View All ({{totalRecords}})</button> -->
+
+        <input checked (change)="getAll()" class="form-check-input" type="radio" name="flexRadioDefault"
+            id="flexRadioDefault1">
+        <label class="form-check-label fw-bolder" for="flexRadioDefault1">View
+            All({{AvailablePosts.length+UnvailablePosts.length}})</label>
+    </div>
+
+    <div class="form-check ms-5">
+
+        <input (change)="getAvailable()" class="form-check-input" type="radio" name="flexRadioDefault"
+            id="flexRadioDefault2">
+        <label class="form-check-label" for="flexRadioDefault2">Show Available Posts ({{AvailablePosts.length}})</label>
+    </div>
+    <div class="form-check ms-5">
+        <input (change)="getUnAvailable()" class="form-check-input" type="radio" name="flexRadioDefault"
+            id="flexRadioDefault3">
+        <label class="form-check-label" for="flexRadioDefault3"> Show Unavailable posts
+            ({{UnvailablePosts.length}})</label>
+    </div>
+</div>
+
+
+<div class="global row row-cols-2 row-cols-md-4 g-4 m-3">
+    <div *ngFor="let post of AllPosts" class="col-">
+
+        <div [ngClass]="{'unavailable': post.isAvailable== false }" class="card h-100">
+
+
+            <img [src]="createImgPath(post)" class="card-img-top" alt="{{post.title}}" />
+
+
+            <div class="card-body">
+
+                <div class="d-flex  align-items-start">
+                    <p class="card-text">{{ post.title }}</p>
+                    <div class="m-1">
+                        <i></i>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-wrap align-items-center ">
+                    <h4 class="card-title text-nowrap ">{{ post.price }} EGP</h4>
+                    <small class="card-text text-muted mx-2" *ngIf="post.isNegotiable">negotaitable</small>
+                </div>
+
+                <p class="card-text d-flex flex-wrap justify-content-between">
+                    <small class="text-muted">{{ post.cityName }}, Egypt</small>
+                    <small class="text-muted"> {{calculatePostDays(post.createdAt)}} Days ago</small>
+                </p>
+
+                <button routerLink="/PostEdit/{{post.postId}}" type="submit" class="btn btn-dark mb-4">Edit</button>
+            </div>
+
+            <div *ngIf="!post.isAvailable" class="card-footer">
+                <small class="card-text  text-danger mx-2" >Unavailable</small>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- _______________________Pagination_________________________________  -->
+
+<div class="d-flex justify-content-center m-0">
+    <pagination [boundaryLinks]="false" [maxSize]=5 [totalItems]="totalRecords" [itemsPerPage]="Adsfilter.pageSize"
+        [(ngModel)]="Adsfilter.pageNumber" (pageChanged)="pageChanged($event)" previousText="&lsaquo;"
+        nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+</div>

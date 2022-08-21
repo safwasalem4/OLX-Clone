@@ -1,0 +1,17 @@
+
+<div class="container-fluid text-center">
+
+    <img src="/assets/images/404-error.png" alt="search not found" class="m-4" width="250" height="250">
+    <h3>oops! The page you are trying to reach is not found :(</h3>
+    <div *ngIf="(accountService.currentUser$ | async)===null">
+        <button class="btn btn-primary" routerLink="/">Return to Home Page</button>
+    </div>
+    
+    <div *ngIf="(accountService.currentUser$ | async)">
+        <button class="btn btn-primary" routerLink="/home">Return to Home Page</button>
+    </div>
+
+</div>
+
+
+

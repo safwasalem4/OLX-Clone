@@ -1,0 +1,14 @@
+.carousel-inner{
+    width:100%;
+    height:450px; 
+
+}
+
+.c-img{
+    height:450px;
+}
+
+.light{
+    font-size: 0.9rem;
+    color: rgba(0, 47, 52, 0.826) ;
+}
